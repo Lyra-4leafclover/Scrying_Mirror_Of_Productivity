@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Obsidian Mirror — Lyra's Portfolio</title>
+  <meta name="description" content="Lyra's personal portfolio & technical journal — Data Engineer, DataOps, Web Design, and App Dev. Speak to the obsidian pool to materialize projects, skills, research, blogs, and guestbook.">
+  
+  <link rel="stylesheet" href="css/style.css?v=21">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/sirxemic/jquery.ripples/dist/jquery.ripples-min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+
+  <canvas id="particles-canvas"></canvas>
+
+  <canvas id="matrix-canvas"></canvas>
+
+  <div class="app-container">
+
+    <header class="top-nav">
+      <div class="brand-logo">
+        <div class="brand-dot"></div>
+        <span>OBSIDIAN POOL // PRODUCTIVITY HUB</span>
+      </div>
+      <div class="header-status">
+        <div id="user-profile-badge" class="header-profile-pill" title="Click to switch or edit user profile">
+          <img id="header-avatar" src="assets2/lyrabwpfp.jpg" class="header-avatar-img">
+          <span id="header-username">LYRA</span>
+          <span style="font-size: 0.65rem; color: var(--violet-accent);">▾</span>
+        </div>
+        <span id="header-timer-status" class="header-timer-pill" onclick="if(window.contentManager) window.contentManager.showView('pomodoro');" title="Open Focus Timer">[ FOCUS 25:00 ]</span>
+        <span>STATUS: ONLINE</span>
+        <button id="audio-toggle" class="audio-toggle-btn">
+          <span class="audio-icon">🔊</span>
+          <span class="audio-text">SOUND: OFF</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="mirror-viewport-wrapper">
+      <div class="mirror-frame">
+        <div class="mirror-inner-glass ripple-bg">
+          
+          <div class="subsurface-container">
+
+            <section id="view-idle" class="subsurface-view active">
+              <div class="idle-hero">
+                <div class="hero-prompt-symbol">&gt;</div>
+                <h1 class="hero-title">W E L C O M E</h1>
+                <p class="hero-subtitle">Speak to the mirror.<br>It remembers.</p>
+                <div class="hero-star-symbol">✦</div>
+              </div>
+            </section>
+
+            <section id="view-about" class="subsurface-view">
+              <div class="view-header">
+                <h2 class="view-title">Subsurface Profile</h2>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <button id="btn-edit-profile" class="profile-action-btn">✎ EDIT PROFILE</button>
+                  <button id="btn-open-profile-switcher" class="profile-action-btn">⇄ SWITCH USER</button>
+                  <span class="view-tag">SYSTEM // BIO_SPECS</span>
+                </div>
+              </div>
+              <div class="about-grid">
+                <div class="about-card">
+                  <div class="about-avatar-wrapper">
+                    <img id="profile-display-avatar" src="assets2/lyrabwpfp.jpg" alt="Profile Picture" class="about-avatar-img">
+                  </div>
+                  <div style="text-align: center;">
+                    <h3 id="profile-display-name" style="font-family: var(--font-heading); font-size: 1.35rem; color: #fff;">ALEX VANCE</h3>
+                    <p id="profile-display-role" style="font-family: var(--font-code); font-size: 0.76rem; color: var(--violet-accent); margin-top: 4px;">FULL-STACK DEVELOPER // SYSTEM ARCHITECT</p>
+                  </div>
+                  <div class="about-stats">
+                    <div class="stat-item">
+                      <div id="profile-stat-exp" class="stat-num">3</div>
+                      <div class="stat-label">YEARS EXP</div>
+                    </div>
+                    <div class="stat-item">
+                      <div id="profile-stat-projects" class="stat-num">8</div>
+                      <div class="stat-label">PROJECTS</div>
+                    </div>
+                    <div class="stat-item">
+                      <div id="profile-stat-awards" class="stat-num">2</div>
+                      <div class="stat-label">AWARDS</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="about-card about-text">
+                  <h4 style="font-family: var(--font-heading); font-size: 1.05rem; color: var(--silver-bright); margin-bottom: 10px;">BIO &amp; DISCOVERIES</h4>
+                  <p id="profile-display-bio1">
+                    Building clean digital tools, experimenting with creative interfaces, and exploring the space where technology meets daily productivity.
+                  </p>
+                  <p id="profile-display-bio2">
+                    This workspace serves as my personal focus dashboard and digital notebook — documenting ideas, code snippets, and projects along the way.
+                  </p>
+                  <div id="profile-display-tags" style="display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap;">
+                    <span class="tech-tag">TypeScript</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Cloud Architecture</span>
+                    <span class="tech-tag">UI/UX Design</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="view-projects" class="subsurface-view">
+              <div class="view-header">
+                <h2 class="view-title">Featured Works</h2>
+                <span class="view-tag">SUBMERGED_ARCHIVES // ATELIER</span>
+              </div>
+              <div class="projects-grid">
+                <div class="project-card" data-project="atelier" style="grid-column: 1 / -1;">
+                  <div>
+                    <div class="project-badge">PYTHON // WORKSHOP SPACE</div>
+                    <h3 class="project-title" style="font-size: 1.5rem;">Atelier</h3>
+                    <p class="project-desc" style="font-size: 0.95rem; line-height: 1.7;">A personal workshop repository space where I document, build, and track progress across programming languages and software development topics including Tkinter CLI Quiz Makers, Computer Vision Document Reassembly pipelines, and IoT systems.</p>
+                  </div>
+                  <div class="project-tech" style="margin-top: 16px;">
+                    <span class="tech-tag">Python 100%</span>
+                    <span class="tech-tag">Tkinter &amp; PIL</span>
+                    <span class="tech-tag">OpenCV Vision</span>
+                    <span class="tech-tag">IoT Systems</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="view-skills" class="subsurface-view">
+              <div class="view-header">
+                <h2 class="view-title">Mastery Constellation</h2>
+                <span class="view-tag">CAPABILITIES // 10% PROFICIENCY</span>
+              </div>
+              <div class="skills-container">
+                <div class="skill-group">
+                  <div class="skill-group-title">✦ LANGUAGES &amp; FRAMEWORKS</div>
+                  <div class="skill-item">
+                    <div class="skill-info">
+                      <span class="skill-name">Python</span>
+                      <span class="skill-level">10%</span>
+                    </div>
+                    <div class="skill-bar-bg"><div class="skill-bar-fill" data-level="10%"></div></div>
+                  </div>
+                  <div class="skill-item">
+                    <div class="skill-info">
+                      <span class="skill-name">R programming</span>
+                      <span class="skill-level">10%</span>
+                    </div>
+                    <div class="skill-bar-bg"><div class="skill-bar-fill" data-level="10%"></div></div>
+                  </div>
+                  <div class="skill-item">
+                    <div class="skill-info">
+                      <span class="skill-name">C</span>
+                      <span class="skill-level">10%</span>
+                    </div>
+                    <div class="skill-bar-bg"><div class="skill-bar-fill" data-level="10%"></div></div>
+                  </div>
+                  <div class="skill-item">
+                    <div class="skill-info">
+                      <span class="skill-name">JS (JavaScript)</span>
+                      <span class="skill-level">10%</span>
+                    </div>
+                    <div class="skill-bar-bg"><div class="skill-bar-fill" data-level="10%"></div></div>
+                  </div>
+                </div>
+
+                <div class="skill-group">
+                  <div class="skill-group-title">✦ VISION &amp; DATABASES</div>
+                  <div class="skill-item">
+                    <div class="skill-info">
+                      <span class="skill-name">OpenCV</span>
+                      <span class="skill-level">10%</span>
+                    </div>
+                    <div class="skill-bar-bg"><div class="skill-bar-fill" data-level="10%"></div></div>
+                  </div>
+                  <div class="skill-item">
+                    <div class="skill-info">
+                      <span class="skill-name">CSS</span>
+                      <span class="skill-level">10%</span>
+                    </div>
+                    <div class="skill-bar-bg"><div class="skill-bar-fill" data-level="10%"></div></div>
+                  </div>
+                  <div class="skill-item">
+                    <div class="skill-info">
+                      <span class="skill-name">MySQL</span>
+                      <span class="skill-level">10%</span>
+                    </div>
+                    <div class="skill-bar-bg"><div class="skill-bar-fill" data-level="10%"></div></div>
+                  </div>
+                  <div class="skill-item">
+                    <div class="skill-info">
+                      <span class="skill-name">SQLite</span>
+                      <span class="skill-level">10%</span>
+                    </div>
+                    <div class="skill-bar-bg"><div class="skill-bar-fill" data-level="10%"></div></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="view-research" class="subsurface-view">
+              <div class="view-header">
+                <h2 class="view-title">Research &amp; Publications</h2>
+                <span class="view-tag">ACADEMIC // PAPERS</span>
+              </div>
+              <div class="research-grid">
+                <div class="research-card">
+                  <div>
+                    <div class="research-doi">ACADEMIC JOURNAL // IN PROGRESS</div>
+                    <h3 class="research-title">COMING SOON</h3>
+                    <p class="research-abstract">Research work, computer vision documentation, and academic papers are currently being formatted. Check back soon for upcoming publications.</p>
+                  </div>
+                  <a href="#" class="pdf-btn" onclick="alert('Research paper publications coming soon!'); return false;">📄 COMING SOON</a>
+                </div>
+              </div>
+            </section>
+
+            <section id="view-github" class="subsurface-view">
+              <div class="view-header">
+                <h2 class="view-title">GitHub Contribution Telemetry</h2>
+                <span class="view-tag">LIVE_GIT // @lyra-4leafclover</span>
+              </div>
+              <div class="github-container">
+                <div class="github-card">
+
+                  <div class="heatmap-box-outer">
+                    <div class="heatmap-top-row">
+                      <span>GITHUB CONTRIBUTIONS</span>
+                      <span id="github-total-commits">FETCHING LIVE DATA FOR @lyra-4leafclover...</span>
+                    </div>
+
+                    <div id="github-heatmap-grid"></div>
+                  </div>
+
+                  <div class="github-stats-grid">
+                    <div class="github-stat-item">
+                      <div id="gh-stat-commits" class="github-stat-val">...</div>
+                      <div class="github-stat-lbl">COMMITS THIS YEAR</div>
+                    </div>
+                    <div class="github-stat-item">
+                      <div id="gh-stat-repos" class="github-stat-val">...</div>
+                      <div class="github-stat-lbl">REPOSITORIES</div>
+                    </div>
+                    <div class="github-stat-item">
+                      <div id="gh-stat-stars" class="github-stat-val">...</div>
+                      <div class="github-stat-lbl">STARS EARNED</div>
+                    </div>
+                    <div class="github-stat-item">
+                      <div id="gh-stat-streak" class="github-stat-val">...</div>
+                      <div class="github-stat-lbl">COMMUNITY REACH</div>
+                    </div>
+                  </div>
+
+                  <div style="text-align: center; margin-top: 14px;">
+                    <a id="gh-profile-link" href="https://github.com/Lyra-4leafclover" target="_blank" class="profile-link-btn">
+                      <span>⚡ OPEN @LYRA-4LEAFCLOVER GITHUB PROFILE</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="view-blogs" class="subsurface-view">
+              <div class="view-header">
+                <h2 class="view-title">Liquid Writings</h2>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <button id="btn-write-blog" class="profile-action-btn" style="background: rgba(196, 184, 224, 0.16); border-color: var(--violet-accent); color: var(--violet-accent);">+ WRITE NEW LOG / ARTICLE</button>
+                  <span class="view-tag">AUTHOR_ARCHIVES // LOGS</span>
+                </div>
+              </div>
+              <div id="blogs-list-container" class="blogs-list"></div>
+            </section>
+
+            <section id="view-guestbook" class="subsurface-view">
+              <div class="view-header">
+                <h2 class="view-title">Subsurface Guestbook</h2>
+                <span class="view-tag">VISITOR_ARCHIVE // NOTES</span>
+              </div>
+              <div class="gb-grid">
+                <form id="guestbook-form" class="gb-form-box">
+                  <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--silver-bright); margin-bottom: 14px;">LEAVE A NOTE IN THE POOL</h3>
+                  <div class="form-group" style="margin-bottom: 12px;">
+                    <input type="text" id="gb-input-name" placeholder="YOUR NAME / HANDLE" required>
+                  </div>
+                  <div class="form-group" style="margin-bottom: 14px;">
+                    <textarea id="gb-input-msg" rows="4" placeholder="LEAVE A COMMENT FOR LYRA..." required></textarea>
+                  </div>
+                  <button type="submit" class="submit-btn" style="width: 100%;">SUBMIT TO GUESTBOOK ↵</button>
+                </form>
+
+                <div class="gb-list-box">
+                  <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--silver-bright); margin-bottom: 10px;">RECENT GUESTBOOK NOTES</h3>
+                  <div id="guestbook-list-container"></div>
+                </div>
+              </div>
+            </section>
+
+            <section id="view-contact" class="subsurface-view">
+              <div class="view-header">
+                <h2 class="view-title">Materialize Contact</h2>
+                <span class="view-tag">COMMUNICATION_PORTAL</span>
+              </div>
+              <div class="contact-grid">
+                <div class="contact-info-box">
+                  <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--silver-bright); margin-bottom: 14px;">DIRECT CHANNELS</h3>
+                  <a href="mailto:lyra@obsidianmirror.io" class="contact-link">
+                    <span>✉</span>
+                    <div>
+                      <div style="font-size: 0.72rem; color: var(--text-dim);">EMAIL PORTAL</div>
+                      <div style="font-family: var(--font-code); font-size: 0.88rem;">lyra@obsidianmirror.io</div>
+                    </div>
+                  </a>
+                  <a href="https://github.com/Lyra-4leafclover" target="_blank" class="contact-link">
+                    <span>⚡</span>
+                    <div>
+                      <div style="font-size: 0.72rem; color: var(--text-dim);">GITHUB</div>
+                      <div style="font-family: var(--font-code); font-size: 0.88rem;">github.com/Lyra-4leafclover</div>
+                    </div>
+                  </a>
+                </div>
+
+                <form id="contact-form" class="contact-form">
+                  <div class="form-group">
+                    <input type="text" placeholder="YOUR NAME / IDENTITY" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="email" placeholder="YOUR EMAIL ADDRESS" required>
+                  </div>
+                  <div class="form-group">
+                    <textarea rows="4" placeholder="TRANSMIT YOUR MESSAGE INTO THE MIRROR..." required></textarea>
+                  </div>
+                  <button type="submit" class="submit-btn">SEND MESSAGE</button>
+                </form>
+              </div>
+            </section>
+
+            <!-- 1. TODO / TASK MATRIX VIEW -->
+            <section id="view-todo" class="subsurface-view">
+              <div class="view-header">
+                <h2 class="view-title">Productivity Directives</h2>
+                <span class="view-tag">SYSTEM // TASK_MATRIX</span>
+              </div>
+              <div class="todo-container">
+                <div class="todo-stats-bar">
+                  <div class="todo-stat-cell">
+                    <span class="todo-stat-label">TOTAL OBJECTIVES:</span>
+                    <span id="todo-stat-total" class="todo-stat-value">0</span>
+                  </div>
+                  <div class="todo-stat-cell">
+                    <span class="todo-stat-label">COMPLETED:</span>
+                    <span id="todo-stat-completed" class="todo-stat-value">0</span>
+                  </div>
+                  <div class="todo-stat-cell">
+                    <span class="todo-stat-label">PROGRESS:</span>
+                    <span id="todo-stat-percent" class="todo-stat-value">0%</span>
+                  </div>
+                  <div class="todo-progress-track">
+                    <div id="todo-progress-bar-fill" class="todo-progress-fill" style="width: 0%;"></div>
+                  </div>
+                </div>
+
+                <form id="todo-add-form" class="todo-add-box">
+                  <input type="text" id="todo-input-title" class="todo-input" placeholder="+ Add a new high-leverage objective or mission..." required autocomplete="off">
+                  <div class="todo-add-controls">
+                    <select id="todo-select-cat" class="todo-select">
+                      <option value="Deep Work">Deep Work</option>
+                      <option value="Projects">Projects</option>
+                      <option value="Study">Study</option>
+                      <option value="Habits">Habits</option>
+                      <option value="Urgent">Urgent</option>
+                    </select>
+                    <select id="todo-select-pri" class="todo-select">
+                      <option value="High">High Priority</option>
+                      <option value="Medium" selected>Medium</option>
+                      <option value="Low">Low</option>
+                    </select>
+                    <div class="todo-pomo-input-wrap" title="Estimated Pomodoros (25m sessions)">
+                      <span>🍅</span>
+                      <input type="number" id="todo-input-pomo" class="todo-pomo-input" min="1" max="10" value="2">
+                    </div>
+                    <button type="submit" class="todo-add-btn">ADD DIRECTIVE ↵</button>
+                  </div>
+                </form>
+
+                <div class="todo-filter-row">
+                  <div class="todo-filter-group">
+                    <button class="todo-filter-btn active" data-filter="all">ALL</button>
+                    <button class="todo-filter-btn" data-filter="active">ACTIVE</button>
+                    <button class="todo-filter-btn" data-filter="completed">COMPLETED</button>
+                  </div>
+                  <div class="todo-cat-pills">
+                    <button class="todo-cat-pill active" data-category="all">All Tags</button>
+                    <button class="todo-cat-pill" data-category="Deep Work">Deep Work</button>
+                    <button class="todo-cat-pill" data-category="Projects">Projects</button>
+                    <button class="todo-cat-pill" data-category="Study">Study</button>
+                    <button class="todo-cat-pill" data-category="Habits">Habits</button>
+                  </div>
+                  <button id="todo-clear-completed-btn" class="todo-clear-btn" title="Purge completed tasks">CLEAR COMPLETED</button>
+                </div>
+
+                <div id="todo-items-list" class="todo-list-scroll"></div>
+              </div>
+            </section>
+
+            <!-- 2. POMODORO FOCUS TIMER VIEW -->
+            <section id="view-pomodoro" class="subsurface-view">
+              <div class="view-header">
+                <h2 class="view-title">Obsidian Focus Flow</h2>
+                <span class="view-tag">FLOW_STATE // POMODORO_CHRONO</span>
+              </div>
+              <div id="pomodoro-card-wrapper" class="pomodoro-container mode-focus">
+                
+                <div id="pomodoro-target-task-container" class="pomodoro-target-banner" style="display: none;">
+                  <span class="target-label">⚡ ACTIVE DIRECTIVE:</span>
+                  <span id="pomodoro-target-task-title" class="target-title">Task Title</span>
+                  <button id="detach-task-btn" class="target-detach-btn" title="Detach task">&times;</button>
+                </div>
+
+                <div class="pomodoro-modes-bar">
+                  <button class="timer-mode-btn active" data-mode="focus">FOCUS (25M)</button>
+                  <button class="timer-mode-btn" data-mode="short_break">SHORT BREAK (5M)</button>
+                  <button class="timer-mode-btn" data-mode="long_break">LONG BREAK (15M)</button>
+                </div>
+
+                <div class="pomodoro-dial-wrapper">
+                  <svg class="pomodoro-svg-dial" width="320" height="320" viewBox="0 0 320 320">
+                    <defs>
+                      <linearGradient id="pomo-grad-focus" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#c4b8e0" />
+                        <stop offset="100%" stop-color="#8a7aa8" />
+                      </linearGradient>
+                      <linearGradient id="pomo-grad-break" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#a3e635" />
+                        <stop offset="100%" stop-color="#22c55e" />
+                      </linearGradient>
+                    </defs>
+                    <circle class="pomodoro-bg-circle" cx="160" cy="160" r="140" />
+                    <circle id="pomodoro-progress-circle" class="pomodoro-fill-circle" cx="160" cy="160" r="140" />
+                  </svg>
+                  
+                  <div class="pomodoro-time-center">
+                    <div id="pomodoro-time-display" class="pomodoro-time-text">25:00</div>
+                    <div class="pomodoro-status-caption">OBSIDIAN RESONANCE</div>
+                  </div>
+                </div>
+
+                <div class="pomodoro-controls-row">
+                  <button id="pomodoro-reset-btn" class="pomodoro-sec-btn">⟲ RESET</button>
+                  <button id="pomodoro-toggle-btn" class="pomodoro-main-btn"><span>▶ START FOCUS</span></button>
+                  <button id="pomodoro-skip-btn" class="pomodoro-sec-btn">⏭ SKIP</button>
+                </div>
+
+                <div class="pomodoro-presets-row">
+                  <span style="font-size: 0.72rem; color: var(--text-dim); margin-right: 6px;">CUSTOM PRESETS:</span>
+                  <button class="duration-preset-btn" data-mins="15">15m</button>
+                  <button class="duration-preset-btn" data-mins="25">25m</button>
+                  <button class="duration-preset-btn" data-mins="50">50m (Deep)</button>
+                  <button class="duration-preset-btn" data-mins="90">90m (Ultra)</button>
+                </div>
+
+              </div>
+            </section>
+
+            <!-- 3. MULTI-TIMESCALE PRODUCTIVITY STATS VIEW -->
+            <section id="view-stats" class="subsurface-view">
+              <div class="view-header">
+                <h2 class="view-title">Productivity Telemetry</h2>
+                <span class="view-tag">ANALYTICS // MULTI_SCALE_DB</span>
+              </div>
+              <div class="stats-container">
+                
+                <div class="stats-top-controls">
+                  <div class="stats-scale-tabs">
+                    <button class="stats-scale-tab" data-scale="day">DAY</button>
+                    <button class="stats-scale-tab" data-scale="week">WEEK</button>
+                    <button class="stats-scale-tab" data-scale="month">MONTH</button>
+                    <button class="stats-scale-tab active" data-scale="year">YEAR (365D)</button>
+                  </div>
+                  <div class="stats-backup-btns">
+                    <button id="stats-export-btn" class="backup-btn" title="Export database to JSON file">💾 EXPORT DB</button>
+                    <button id="stats-import-btn" class="backup-btn" title="Restore database from JSON file">📂 RESTORE</button>
+                    <input type="file" id="stats-file-input" style="display: none;" accept=".json">
+                  </div>
+                </div>
+
+                <div class="stats-metrics-grid">
+                  <div class="stat-card">
+                    <div id="stat-total-focus-hours" class="stat-card-val">...</div>
+                    <div class="stat-card-lbl">FOCUS TIME</div>
+                  </div>
+                  <div class="stat-card">
+                    <div id="stat-current-streak" class="stat-card-val">...</div>
+                    <div class="stat-card-lbl">ACTIVE STREAK</div>
+                  </div>
+                  <div class="stat-card">
+                    <div id="stat-longest-streak" class="stat-card-val">...</div>
+                    <div class="stat-card-lbl">RECORD STREAK</div>
+                  </div>
+                  <div class="stat-card">
+                    <div id="stat-total-tasks-done" class="stat-card-val">...</div>
+                    <div class="stat-card-lbl">TASKS CRUSHED</div>
+                  </div>
+                </div>
+
+                <!-- Panel: YEAR VIEW (365-Day Contribution Heatmap) -->
+                <div id="stats-panel-year" class="stats-view-panel active">
+                  <div class="panel-header-row">
+                    <span class="panel-title">✦ 365-DAY PRODUCTIVITY TELEMETRY HEATMAP</span>
+                    <div class="heatmap-legend">
+                      <span>Less</span>
+                      <div class="heatmap-cell level-0"></div>
+                      <div class="heatmap-cell level-1"></div>
+                      <div class="heatmap-cell level-2"></div>
+                      <div class="heatmap-cell level-3"></div>
+                      <div class="heatmap-cell level-4"></div>
+                      <span>More</span>
+                    </div>
+                  </div>
+                  <div class="heatmap-scroll-wrapper">
+                    <div id="stats-year-heatmap-grid" class="year-heatmap-grid"></div>
+                  </div>
+                </div>
+
+                <!-- Panel: MONTH VIEW (Calendar Matrix) -->
+                <div id="stats-panel-month" class="stats-view-panel" style="display: none;">
+                  <div class="month-nav-row">
+                    <button id="stats-prev-month" class="month-nav-btn">◀ PREV</button>
+                    <span id="stats-month-label" class="month-label-text">...</span>
+                    <button id="stats-next-month" class="month-nav-btn">NEXT ▶</button>
+                    <div class="month-totals-pill">
+                      <span>Focus: <strong id="stats-month-focus-total" style="color: var(--violet-accent);">...</strong></span>
+                      <span>Active: <strong id="stats-month-active-days" style="color: #fff;">...</strong></span>
+                    </div>
+                  </div>
+                  <div id="stats-month-calendar-grid" class="month-calendar-box"></div>
+                </div>
+
+                <!-- Panel: WEEK VIEW (7-Day Bar Chart) -->
+                <div id="stats-panel-week" class="stats-view-panel" style="display: none;">
+                  <div class="panel-header-row">
+                    <span class="panel-title">✦ THIS WEEK'S FOCUS &amp; TASK VELOCITY</span>
+                    <div class="week-summary-badges">
+                      <span>Total: <strong id="stats-week-focus-total" style="color: var(--violet-accent);">...</strong></span>
+                      <span>Tasks: <strong id="stats-week-tasks-total" style="color: #a3e635;">...</strong></span>
+                      <span>Avg: <strong id="stats-week-daily-avg" style="color: var(--silver-bright);">...</strong></span>
+                    </div>
+                  </div>
+                  <div id="stats-week-bar-chart" class="week-chart-box"></div>
+                </div>
+
+                <!-- Panel: DAY VIEW (24-Hour Timeline) -->
+                <div id="stats-panel-day" class="stats-view-panel" style="display: none;">
+                  <div class="panel-header-row">
+                    <span class="panel-title">✦ TODAY'S 24-HOUR FOCUS TIMELINE</span>
+                    <div class="day-summary-badges">
+                      <span>Focus: <strong id="stats-day-focus-total" style="color: var(--violet-accent);">...</strong></span>
+                      <span>Tasks: <strong id="stats-day-tasks-total" style="color: #a3e635;">...</strong></span>
+                      <span>Score: <strong id="stats-day-score" style="color: var(--silver-bright);">...</strong></span>
+                    </div>
+                  </div>
+                  <div id="stats-day-hourly-chart" class="day-hourly-box"></div>
+                  <div class="day-sessions-container">
+                    <div style="font-family: var(--font-code); font-size: 0.76rem; color: var(--text-muted); margin-bottom: 8px;">RECORDED FOCUS SESSIONS:</div>
+                    <div id="stats-day-sessions-list" class="day-sessions-scroll"></div>
+                  </div>
+                </div>
+
+              </div>
+            </section>
+
+            <!-- 4. VIDEO EMBED & LECTURE WORKSPACE -->
+            <section id="view-video" class="subsurface-view">
+              <div class="view-header">
+                <h2 class="view-title">Lecture Theater &amp; Study Mirror</h2>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <button id="video-mode-yt" class="video-mode-tab active">YOUTUBE EMBED</button>
+                  <button id="video-mode-direct" class="video-mode-tab">DIRECT MP4 / MEDIA</button>
+                  <span class="view-tag">STUDY_HUB // MEDIA_SYNC</span>
+                </div>
+              </div>
+              <div class="video-workspace-container">
+                
+                <div class="video-top-bar">
+                  <form id="video-url-form" class="video-url-form">
+                    <input type="text" id="video-url-input" class="video-url-input" placeholder="Paste YouTube URL, Video ID, or direct .mp4 link..." autocomplete="off">
+                    <button type="submit" class="video-load-btn">LOAD MEDIA ↵</button>
+                  </form>
+                  <div id="video-presets-container" class="video-presets-row"></div>
+                </div>
+
+                <div class="video-split-grid">
+                  
+                  <div class="video-player-column">
+                    <!-- YouTube Iframe Container -->
+                    <div id="video-yt-wrapper" class="video-iframe-wrapper">
+                      <iframe id="video-iframe-embed" src="" title="Video Lecture" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+
+                    <!-- Native HTML5 Video Container -->
+                    <div id="video-html5-wrapper" class="video-html5-wrapper" style="display: none;">
+                      <video id="video-html5-player" controls preload="metadata">
+                        <source src="" type="video/mp4">
+                        Your browser does not support HTML5 video.
+                      </video>
+                    </div>
+
+                    <div class="video-meta-bar">
+                      <span id="video-active-title" class="video-active-title">Obsidian Video Lecture</span>
+                      <div style="display: flex; gap: 8px; align-items: center;">
+                        <a id="video-popout-btn" href="#" target="_blank" class="video-popout-link" title="Open directly in dedicated window">↗ POP-OUT PLAYER</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="video-notes-column">
+                    <div class="notes-header-row">
+                      <span class="notes-title">✦ LECTURE SCRATCHPAD</span>
+                      <span id="video-notes-saved-indicator" class="notes-saved-status">Ready for notes</span>
+                    </div>
+                    <div class="notes-quick-tools">
+                      <button id="btn-insert-timestamp" class="notes-tool-btn">+ ⏱ TIMESTAMP</button>
+                      <button id="btn-insert-bullet" class="notes-tool-btn">+ • BULLET</button>
+                      <button id="btn-insert-code" class="notes-tool-btn">+ ⟨/⟩ CODE</button>
+                    </div>
+                    <textarea id="video-lecture-notes" class="video-notes-textarea" placeholder="Take timestamped notes, key formulas, lecture insights, code snippets here... Auto-saves to Obsidian DB!"></textarea>
+                    <div class="notes-footer-actions">
+                      <button id="video-save-notes-btn" class="notes-action-btn">💾 FORCE SAVE</button>
+                      <button id="video-clear-notes-btn" class="notes-action-btn-sec">CLEAR</button>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </section>
+
+            <!-- 5. QUOTE OF THE DAY VIEW -->
+            <section id="view-quote" class="subsurface-view">
+              <div class="view-header">
+                <h2 class="view-title">Philosophical Resonance</h2>
+                <span class="view-tag">STOIC_ARCHIVE // WISDOM</span>
+              </div>
+              <div class="quote-view-container">
+                <div id="quote-display-card" class="quote-luxury-card">
+                  <div class="quote-top-tag">
+                    <span id="quote-category">STOICISM // MEDITATIONS</span>
+                  </div>
+                  <div class="quote-glyph-large">“</div>
+                  <div id="quote-text" class="quote-main-text">
+                    “We suffer more often in imagination than in reality.”
+                  </div>
+                  <div id="quote-author" class="quote-author-name">
+                    — Seneca
+                  </div>
+                  <div class="quote-actions-row">
+                    <button id="quote-next-btn" class="quote-btn-primary">✦ NEXT REFLECTION</button>
+                    <button id="quote-fav-btn" class="quote-btn-sec">☆ SAVE TO FAVORITES</button>
+                    <button id="quote-copy-btn" class="quote-btn-sec">📋 COPY QUOTE</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="view-help" class="subsurface-view">
+              <div class="view-header">
+                <h2 class="view-title">Terminal Manual</h2>
+                <span class="view-tag">COMMAND_DICTIONARY</span>
+              </div>
+              <div style="background: rgba(8, 10, 16, 0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; font-family: var(--font-code); font-size: 0.88rem; line-height: 1.8;">
+                <p style="color: var(--silver-bright); margin-bottom: 12px;">AVAILABLE PRODUCTIVITY &amp; MIRROR COMMANDS:</p>
+                <div style="display: grid; grid-template-columns: 140px 1fr; gap: 8px 16px; margin-bottom: 16px;">
+                  <span style="color: var(--violet-accent); font-weight: 700;">todo</span> <span>: Directive task board (add/filter/complete tasks)</span>
+                  <span style="color: var(--violet-accent); font-weight: 700;">pomodoro</span> <span>: Luxury circular focus chrono (25m/50m/custom)</span>
+                  <span style="color: var(--violet-accent); font-weight: 700;">stats</span> <span>: Multi-scale telemetry (day/week/month/365d heatmap)</span>
+                  <span style="color: var(--violet-accent); font-weight: 700;">video</span> <span>: YouTube lecture study theater &amp; auto-saving notes</span>
+                  <span style="color: var(--violet-accent); font-weight: 700;">quote</span> <span>: Philosophical wisdom &amp; daily stoic reflections</span>
+                  <span style="color: var(--violet-accent); font-weight: 700;">about</span> <span>: Background, identity &amp; engineering profile</span>
+                  <span style="color: var(--violet-accent); font-weight: 700;">projects</span> <span>: Featured repositories &amp; workshop builds</span>
+                  <span style="color: var(--violet-accent); font-weight: 700;">blogs</span> <span>: Technical articles &amp; weekly engineering logs</span>
+                  <span style="color: var(--violet-accent); font-weight: 700;">clear</span> <span>: Reset viewport to default pool state</span>
+                  <span style="color: var(--violet-accent); font-weight: 700;">matrix</span> <span>: Toggle visual digital rain backdrop</span>
+                </div>
+                <p style="color: var(--text-dim); font-size: 0.78rem;">PRO TIP: Try inline commands like <code>todo add Study ML</code>, <code>pomodoro 50</code>, <code>stats year</code>, or <code>video [URL]</code>.</p>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="floor-reflection"></div>
+    </main>
+
+    <footer class="terminal-wrapper">
+      <div class="terminal-box-wrapper">
+        <div class="terminal-input-row">
+          <div class="terminal-input-left">
+            <span class="terminal-prompt-symbol">&gt;</span>
+            <input type="text" id="terminal-input" class="terminal-input-field" placeholder="Type a command (todo, pomodoro, stats, video, quote, blogs, about, help)..." autocomplete="off" spellcheck="false">
+          </div>
+          <span class="terminal-enter-hint">ENTER ↵</span>
+        </div>
+
+        <div class="terminal-command-list">
+          <div class="terminal-cmd-item" data-cmd="todo">
+            <span class="cmd-name">&gt; todo</span>
+            <span class="cmd-desc">- task manager</span>
+          </div>
+          <div class="terminal-cmd-item" data-cmd="pomodoro">
+            <span class="cmd-name">&gt; pomodoro</span>
+            <span class="cmd-desc">- focus timer</span>
+          </div>
+          <div class="terminal-cmd-item" data-cmd="stats">
+            <span class="cmd-name">&gt; stats</span>
+            <span class="cmd-desc">- analytics &amp; heatmap</span>
+          </div>
+          <div class="terminal-cmd-item" data-cmd="video">
+            <span class="cmd-name">&gt; video</span>
+            <span class="cmd-desc">- lecture theater</span>
+          </div>
+          <div class="terminal-cmd-item" data-cmd="quote">
+            <span class="cmd-name">&gt; quote</span>
+            <span class="cmd-desc">- daily wisdom</span>
+          </div>
+          <div class="terminal-cmd-item" data-cmd="blogs">
+            <span class="cmd-name">&gt; blogs</span>
+            <span class="cmd-desc">- engineering logs</span>
+          </div>
+          <div class="terminal-cmd-item" data-cmd="about">
+            <span class="cmd-name">&gt; about</span>
+            <span class="cmd-desc">- profile &amp; bio</span>
+          </div>
+          <div class="terminal-cmd-item" data-cmd="help">
+            <span class="cmd-name">&gt; help</span>
+            <span class="cmd-desc">- system directory</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <div id="project-modal" class="modal-overlay">
+    <div class="modal-container">
+      <button id="project-modal-close" class="modal-close-btn">&times;</button>
+      <img id="p-modal-img" src="" alt="Project Preview" class="modal-hero-img">
+      <div id="p-modal-badge" class="project-badge"></div>
+      <h2 id="p-modal-title" class="modal-title"></h2>
+      <p id="p-modal-desc" class="modal-body"></p>
+      
+      <div style="margin-bottom: 24px;">
+        <h3 style="font-family: var(--font-heading); color: var(--violet-accent); font-size: 1.1rem; margin-bottom: 10px;">KEY FEATURES &amp; ARCHITECTURE</h3>
+        <ul id="p-modal-details" style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.8; padding-left: 20px;"></ul>
+      </div>
+
+      <div class="modal-actions">
+        <a id="p-modal-live" href="#" target="_blank" class="modal-action-btn">🚀 LIVE DEMO</a>
+        <a id="p-modal-github" href="#" target="_blank" class="modal-action-btn">⚡ GITHUB REPO</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="blog-modal" class="modal-overlay">
+    <div class="modal-container">
+      <button id="blog-modal-close" class="modal-close-btn">&times;</button>
+      <div id="b-modal-meta" class="blog-meta"></div>
+      <h2 id="b-modal-title" class="modal-title"></h2>
+      <div id="b-modal-body" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- PROFILE EDIT MODAL -->
+  <div id="profile-edit-modal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 620px;">
+      <button id="profile-edit-modal-close" class="modal-close-btn">&times;</button>
+      <div class="project-badge">OBSIDIAN // PROFILE_CONFIG</div>
+      <h2 class="modal-title" style="margin-bottom: 16px;">Edit User Profile Specs</h2>
+      
+      <form id="profile-edit-form" class="modal-editor-form">
+        <div class="form-row-dual">
+          <div class="form-group-item">
+            <label class="editor-label">USER NAME / IDENTITY</label>
+            <input type="text" id="edit-profile-name" class="editor-input" required>
+          </div>
+          <div class="form-group-item">
+            <label class="editor-label">ROLE / SPECIALTY</label>
+            <input type="text" id="edit-profile-role" class="editor-input" required>
+          </div>
+        </div>
+
+        <div class="form-group-item">
+          <label class="editor-label">PROFILE AVATAR PICTURE</label>
+          <div class="avatar-edit-row">
+            <img id="edit-profile-avatar-preview" src="assets2/lyrabwpfp.jpg" class="profile-preview-avatar">
+            <div class="avatar-edit-controls">
+              <div style="display: flex; gap: 8px;">
+                <label for="edit-profile-file-input" class="profile-upload-file-btn">📁 UPLOAD FROM COMPUTER</label>
+                <input type="file" id="edit-profile-file-input" accept="image/*" style="display: none;">
+                <button type="button" id="btn-use-avatar-preset" class="profile-upload-file-btn">🎲 PRESET</button>
+              </div>
+              <input type="text" id="edit-profile-avatar" class="editor-input" placeholder="Or paste image URL (https://...)">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row-triple">
+          <div class="form-group-item">
+            <label class="editor-label">YEARS EXP</label>
+            <input type="number" id="edit-profile-exp" class="editor-input" min="0" max="50">
+          </div>
+          <div class="form-group-item">
+            <label class="editor-label">PROJECTS</label>
+            <input type="number" id="edit-profile-projects" class="editor-input" min="0">
+          </div>
+          <div class="form-group-item">
+            <label class="editor-label">AWARDS</label>
+            <input type="number" id="edit-profile-awards" class="editor-input" min="0">
+          </div>
+        </div>
+
+        <div class="form-group-item">
+          <label class="editor-label">PRIMARY BIO &amp; PASSIONS</label>
+          <textarea id="edit-profile-bio" class="editor-textarea" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group-item">
+          <label class="editor-label">SECONDARY PHILOSOPHY / DISCOVERIES</label>
+          <textarea id="edit-profile-bio2" class="editor-textarea" rows="2"></textarea>
+        </div>
+
+        <div class="form-group-item">
+          <label class="editor-label">TECH STACK TAGS (Comma separated)</label>
+          <input type="text" id="edit-profile-tags" class="editor-input" placeholder="e.g. Python, DataOps, React, ML, PyTorch">
+        </div>
+
+        <div class="form-row-dual">
+          <div class="form-group-item">
+            <label class="editor-label">GITHUB PROFILE URL</label>
+            <input type="text" id="edit-profile-github" class="editor-input" placeholder="https://github.com/username">
+          </div>
+          <div class="form-group-item">
+            <label class="editor-label">EMAIL PORTAL</label>
+            <input type="email" id="edit-profile-email" class="editor-input" placeholder="user@example.com">
+          </div>
+        </div>
+
+        <div class="modal-actions" style="margin-top: 20px;">
+          <button type="submit" class="modal-action-btn" style="background: var(--violet-accent); color: #000; font-weight: bold; width: 100%;">✓ SAVE PROFILE SPECIFICATIONS</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- PROFILE SWITCHER MODAL -->
+  <div id="profile-switch-modal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 540px;">
+      <button id="profile-switch-modal-close" class="modal-close-btn">&times;</button>
+      <div class="project-badge">SYSTEM // USER_MATRIX</div>
+      <h2 class="modal-title">Switch Active Profile</h2>
+      <p style="color: var(--text-dim); font-size: 0.8rem; margin-bottom: 16px;">Each profile maintains its own isolated tasks, focus sessions, and technical articles.</p>
+      
+      <div id="profiles-list-container" class="profiles-list-wrapper"></div>
+
+      <div style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px;">
+        <button id="btn-create-new-profile" class="modal-action-btn" style="width: 100%; background: rgba(196, 184, 224, 0.15); border-color: var(--violet-accent); color: var(--violet-accent);">+ CREATE NEW USER PROFILE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOG AUTHORING & EDITING MODAL -->
+  <div id="blog-editor-modal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 680px;">
+      <button id="blog-editor-modal-close" class="modal-close-btn">&times;</button>
+      <div class="project-badge">AUTHOR_STUDIO // LIQUID_WRITINGS</div>
+      <h2 id="editor-modal-title-hdr" class="modal-title" style="margin-bottom: 16px;">Write New Engineering Log</h2>
+      
+      <form id="blog-editor-form" class="modal-editor-form">
+        <div class="form-row-dual">
+          <div class="form-group-item" style="flex: 2;">
+            <label class="editor-label">LOG ARTICLE TITLE</label>
+            <input type="text" id="editor-blog-title" class="editor-input" placeholder="e.g. Weekly Log: Deep Learning Architectures" required>
+          </div>
+          <div class="form-group-item" style="flex: 1;">
+            <label class="editor-label">READ TIME</label>
+            <input type="text" id="editor-blog-readtime" class="editor-input" placeholder="e.g. 5 MIN READ" required>
+          </div>
+        </div>
+
+        <div class="form-group-item">
+          <label class="editor-label">SUMMARY / ABSTRACT</label>
+          <textarea id="editor-blog-summary" class="editor-textarea" rows="2" placeholder="Brief 1-2 sentence overview of your discoveries..." required></textarea>
+        </div>
+
+        <div class="form-group-item">
+          <label class="editor-label">HERO COVER IMAGE (Or upload below)</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="editor-blog-cover" class="editor-input" placeholder="https://images.unsplash.com/... or upload file" style="flex: 1;">
+            <label for="editor-blog-cover-file" class="profile-upload-file-btn" style="white-space: nowrap;">📁 UPLOAD COVER</label>
+            <input type="file" id="editor-blog-cover-file" accept="image/*" style="display: none;">
+          </div>
+        </div>
+
+        <div class="form-group-item">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <label class="editor-label">ARTICLE BODY CONTENT</label>
+            <div class="blog-editor-toolbar">
+              <label for="blog-insert-img-file" class="blog-toolbar-btn" title="Upload and insert image at cursor">📷 INSERT IMAGE</label>
+              <input type="file" id="blog-insert-img-file" accept="image/*" style="display: none;">
+              <span class="blog-paste-hint">💡 Ctrl+V to paste images anywhere</span>
+            </div>
+          </div>
+          <textarea id="editor-blog-content" class="editor-textarea" rows="8" placeholder="Write your technical journey, research thoughts, and code explanations here...
+Paste (Ctrl+V) images directly anywhere in between text!" required></textarea>
+        </div>
+
+        <div class="modal-actions" style="margin-top: 18px;">
+          <button type="submit" class="modal-action-btn" style="background: var(--violet-accent); color: #000; font-weight: bold; width: 100%;">✦ PUBLISH ARTICLE TO OBSIDIAN POOL</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts Suite -->
+  <script src="js/productivity-db.js?v=30"></script>
+  <script src="js/audio-synth.js?v=30"></script>
+  <script src="js/liquid-mirror.js?v=30"></script>
+  <script src="js/github-heatmap.js?v=30"></script>
+  <script src="js/quote-system.js?v=30"></script>
+  <script src="js/pomodoro-timer.js?v=30"></script>
+  <script src="js/todo-manager.js?v=30"></script>
+  <script src="js/stats-dashboard.js?v=30"></script>
+  <script src="js/video-workspace.js?v=30"></script>
+  <script src="js/content-manager.js?v=30"></script>
+  <script src="js/terminal.js?v=30"></script>
+  <script src="js/app.js?v=30"></script>
+</body>
+</html>
