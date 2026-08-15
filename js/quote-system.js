@@ -135,7 +135,6 @@ class QuoteSystem {
     this.currentQuote = this.getDailyQuote();
     this.bindEvents();
     this.renderCurrentQuote();
-    this.updateHeroDailyQuote();
   }
 
   getDailyQuote() {
@@ -211,14 +210,6 @@ class QuoteSystem {
       $('#quote-text').text(`“${q.text}”`);
       $('#quote-author').text(`— ${q.author}`);
       $('#quote-category').text(`${q.category} // ${q.era}`);
-    }
-  }
-
-  updateHeroDailyQuote() {
-    const q = this.getDailyQuote();
-    const $heroSubtitle = $('.hero-subtitle');
-    if ($heroSubtitle.length) {
-      $heroSubtitle.html(`“${q.text}”<br><span style="font-size: 0.8rem; color: var(--violet-accent); font-family: var(--font-code); font-weight: 500; letter-spacing: 1px;">— ${q.author}</span>`);
     }
   }
 }
