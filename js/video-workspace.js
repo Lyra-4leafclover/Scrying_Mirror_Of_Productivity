@@ -182,8 +182,13 @@ class VideoWorkspace {
     this.currentVideoId = videoId;
     this.currentVideoUrl = url || `https://www.youtube.com/watch?v=${videoId}`;
 
-    // Universal clean YouTube embed
-    const embedUrl = `https://www.youtube.com/embed/${videoId}?rel=0`;
+    // Extract playlist ID if present
+    let embedUrl = `https://www.youtube.com/embed/${videoId}?rel=0`;
+    const listMatch = this.currentVideoUrl.match(/[?&]list=([a-zA-Z0-9_-]+)/i);
+    if (listMatch && listMatch[1]) {
+      embedUrl += `&list=${listMatch[1]}`;
+    }
+
     $('#video-iframe-embed').attr('src', embedUrl);
     $('#video-active-title').text(title);
     $('#video-popout-btn').attr('href', this.currentVideoUrl);
