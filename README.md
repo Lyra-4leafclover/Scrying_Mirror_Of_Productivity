@@ -16,16 +16,3 @@
 
 ---
 
-## 🚀 Getting Started
-
-### Local Setup
-Simply open `index.html` in your browser, or start a local server:
-```bash
-# Using Python
-python -m http.server 8000
-```
-Then visit `http://localhost:8000`.
-
-### Deploy to Vercel
-1. Import this repository into [Vercel](https://vercel.com).
-2. Click **Deploy**. Zero configuration required!
