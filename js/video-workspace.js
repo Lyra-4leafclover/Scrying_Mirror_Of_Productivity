@@ -1,6 +1,6 @@
 /**
  * Obsidian Video Embed & Lecture Workspace
- * Dual-Engine: YouTube Embed + Native HTML5 Media Player with Split-Screen Notes Sync
+ * Dual-Engine: Universal YouTube Embed + Native HTML5 Media Player with Split-Screen Notes Sync
  */
 class VideoWorkspace {
   constructor() {
@@ -10,10 +10,10 @@ class VideoWorkspace {
     this.autoSaveTimer = null;
 
     this.presets = [
-      { id: '2Sg8d9mU2uU', title: 'MIT 6.006 Intro to Algorithms', category: 'Lecture', type: 'yt' },
-      { id: '8jLOx1hD3_o', title: 'Stanford CS229: Machine Learning', category: 'Lecture', type: 'yt' },
-      { id: 'rfscVS0vtbw', title: 'Python 4-Hour Crash Course', category: 'Coding', type: 'yt' },
-      { id: '4xDzrJKXOOY', title: 'Synthwave Radio Chill & Coding', category: 'Beats', type: 'yt' }
+      { id: 'rfscVS0vtbw', title: 'Python 4-Hour Crash Course (freeCodeCamp)', category: 'Python', type: 'yt' },
+      { id: 'YoXxevp1WRQ', title: 'Harvard CS50: Intro to Computer Science', category: 'CS50', type: 'yt' },
+      { id: 'eWRfhZUzrAc', title: 'C++ Full Course for Beginners', category: 'C++', type: 'yt' },
+      { id: '4xDzrJKXOOY', title: 'Synthwave Radio Chill & Coding Beats', category: 'Music', type: 'yt' }
     ];
 
     this.init();
@@ -147,7 +147,7 @@ class VideoWorkspace {
     const videoId = this.extractYouTubeId(inputUrl);
     if (videoId) {
       this.switchMode('yt');
-      this.loadVideo(videoId, inputUrl, 'Custom Lecture Stream');
+      this.loadVideo(videoId, inputUrl, 'Custom YouTube Lecture');
       $('#video-url-input').val('');
       if (window.audioSynth) window.audioSynth.playClick();
     } else {
@@ -182,6 +182,7 @@ class VideoWorkspace {
     this.currentVideoId = videoId;
     this.currentVideoUrl = url || `https://www.youtube.com/watch?v=${videoId}`;
 
+    // Universal clean YouTube embed
     const embedUrl = `https://www.youtube.com/embed/${videoId}?rel=0`;
     $('#video-iframe-embed').attr('src', embedUrl);
     $('#video-active-title').text(title);
