@@ -6,6 +6,21 @@ class ContentManager {
   constructor() {
     this.projects = [
       {
+        id: 'scrying_mirror',
+        title: 'Scrying Mirror of Productivity',
+        badge: 'JAVASCRIPT // OBSIDIAN HUB',
+        desc: 'Interactive obsidian mirror dashboard & productivity hub featuring focus timers, telemetry analytics, study lecture theaters, and automated engineering logs.',
+        details: [
+          '365-day live GitHub contribution heatmap sync',
+          'Obsidian focus flow timer & directive matrix',
+          'Lecture theater workspace with timestamped notes',
+          'Subsurface dark liquid mirror UI design'
+        ],
+        image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+        liveUrl: 'https://github.com/Lyra-4leafclover/Scrying_Mirror_Of_Productivity',
+        githubUrl: 'https://github.com/Lyra-4leafclover/Scrying_Mirror_Of_Productivity'
+      },
+      {
         id: 'atelier',
         title: 'Atelier',
         badge: 'PYTHON // WORKSHOP SPACE',
